@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 // href=/style.css
 
 app.get('/', function (req, res, next) {
-  next(new Error);
-  // res.render('home');
+  //next(new Error);
+  res.render('home');
 });
 
 // app.use(function (req, res) {
