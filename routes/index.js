@@ -4,37 +4,19 @@ var Restaurant = require('../models/restaurant')
 var Hotel = require('../models/hotel')
 var Activity = require('../models/activity')
 
-// Retrieve data from restaurants
-//const rdPromise = Restaurant.findAll({})
-
-// Retrieve data from activities
-
-// Retrieve data from hotels
-
 router.get('/', function (req, res, next) {
-    console.log("Here is the container!")
-    //Render the index.html with the r, a h data.
-    var outerScopeContainer = {};
-    Hotel.findAll()
-    .then(function (dbHotels) {
-        outerScopeContainer.dbHotels = dbHotels;
-        return Restaurant.findAll();
-    })
-    .then(function (dbRestaurants) {
-        outerScopeContainer.dbRestaurants = dbRestaurants;
-        return Activity.findAll();
-    })
-    .then(function (dbActivities) {
-        console.log("Here is the container!")
-        console.log(outerScopeContainer)
-        //res.send("Promise chain works!")
+    const rdPromise = Restaurant.findAll();
+    const hdPromise = Hotel.findAll();
+    const adPromise = Activity.findAll();
+
+    Promise.all([rdPromise, hdPromise, adPromise])
+    .then(function (dataArr) {
         res.render('home', {
-            templateHotels: outerScopeContainer.dbHotels,
-            templateRestaurants: outerScopeContainer.dbRestaurants,
-            templateActivities: dbActivities
+            templateHotels: dataArr[1],
+            templateRestaurants: dataArr[0],
+            templateActivities: dataArr[2]
         });
     })
-    .catch(next);
 })
 
 module.exports = router;
