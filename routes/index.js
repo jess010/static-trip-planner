@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 
     Promise.all([rdPromise, hdPromise, adPromise])
     .then(function (dataArr) {
-        res.render('home', {
+        res.render('index', {
             templateHotels: dataArr[1],
             templateRestaurants: dataArr[0],
             templateActivities: dataArr[2]

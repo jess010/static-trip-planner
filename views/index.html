@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
+{% block title %}Your Trip{% endblock %}
+
 {% block content %}
-<h1>Welcome to Home!</h1>
+<div id="app" class="clearfix">
+  <h1>Hello, I am the app!</h1>
+</div>
 <label for="hotels">Hotels</label>
 <select id="hotels">
     {% for hotel in templateHotels %}
